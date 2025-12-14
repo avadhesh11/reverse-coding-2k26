@@ -35,7 +35,7 @@ function Navbar() {
 
                 <Link
                     href="/"
-                    className={`text-black text-5xl mx-4 px-16 bg-white logo ${audiowide.className} font-black tracking-widest`}
+                    className={`text-black text-5xl mx-4 px-16 bg-white logo ${audiowide.className} font-black tracking-widest hover:text-cyan-400 hover:scale-102 transition-all duration-500 ease-int-out"}`}
                 >
                     TESSERACT
                 </Link>
