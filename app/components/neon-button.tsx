@@ -67,7 +67,6 @@ const Button: React.FC<ButtonProps> = ({
         cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
-      {/* OUTER BORDER + GLOW */}
       <span
         aria-hidden
         style={{
@@ -79,7 +78,6 @@ const Button: React.FC<ButtonProps> = ({
         }}
       />
 
-      {/* INNER FILL */}
       <span
         style={{
           position: "relative",

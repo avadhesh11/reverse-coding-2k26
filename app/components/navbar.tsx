@@ -14,8 +14,6 @@ function Navbar() {
     <div className="fixed  z-10000 w-full">
     <nav className="sticky top-0 z-50 w-full  bg-black border-b border-white/50 py-3 md:py-4 transition-all duration-300 ease-out">
       <div className="w-full mx-auto h-fit flex flex-col md:flex-row items-center justify-between max-w-6xl gap-3 md:gap-5 px-3 md:px-6 transition-all duration-300 ease-out">
-
-        {/* Left links */}
         <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-5">
           <Link
             href="/"
@@ -32,7 +30,6 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Center logo */}
         <Link
           href="/"
           className={`text-black text-2xl sm:text-3xl md:text-4xl px-6 sm:px-10 md:px-14 py-2 bg-white logo ${audiowide.className} font-black tracking-[0.35em] hover:text-cyan-400 hover:scale-102 transition-all duration-300 ease-out`}
@@ -40,7 +37,6 @@ function Navbar() {
           TESSERACT
         </Link>
 
-        {/* Right links */}
         <div className="flex flex-wrap justify-center md:justify-end gap-3 md:gap-5">
           <Link
             href="/team"
