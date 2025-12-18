@@ -140,6 +140,7 @@ const Flowchart = () => {
             items-center
           "
         >
+          {/* Row 1 */}
           <GlowWrapper glowColor={GLOW.default}>
             <Button text="QUERY" fillColor="#003035" width={220} height={72} />
           </GlowWrapper>
@@ -165,6 +166,7 @@ const Flowchart = () => {
           <GlowWrapper glowColor={GLOW.default}>
             <Button text="CODE" fillColor="#003035" width={180} height={72} />
           </GlowWrapper>
+{/* Row 2 */}
 <div />
 <div />
 <ArrowUp shaft="bg-blue-300" />
@@ -199,6 +201,7 @@ const Flowchart = () => {
             />
           </GlowWrapper>
 
+          {/* Row 4 */}
           <div />
           <div />
           <div />
@@ -206,6 +209,7 @@ const Flowchart = () => {
           <div />
           <div />
           <ArrowDown shaft="bg-green-400" />
+          {/* Row 5 */}
           <div />
           <div />
           <div />

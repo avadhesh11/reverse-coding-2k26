@@ -3,6 +3,7 @@ import React from "react";
 const Bounty_board = () => {
   return (
     <div className="mt-20 ml-4 mr-4 md:ml-10 md:mr-10 mb-20 dark:bg-black">
+      {/* Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <h1 className="font-extrabold text-4xl">BOUNTY BOARD</h1>
         <h1 className="font-bold text-4xl text-[rgb(0,255,251)] [text-shadow:_0_0_15px_rgba(0,255,251,0.7)]">
@@ -10,6 +11,7 @@ const Bounty_board = () => {
         </h1>
       </div>
 
+      {/* Champion */}
       <div className="mt-10 mb-10 flex justify-center">
         <div className="cursor-pointer relative transition-all duration-500 [filter:drop-shadow(0_0_20px_rgba(255,138,0,0.6))] hover:[filter:drop-shadow(0_0_40px_rgba(255,138,0,0.9))]">
           <div
@@ -47,7 +49,9 @@ const Bounty_board = () => {
         </div>
       </div>
 
+      {/* Bottom Cards */}
       <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-10 mx-auto max-w-full md:max-w-[50%]">
+        {/* Runner Up */}
         <div className="cursor-pointer relative transition-all duration-500 [filter:drop-shadow(0_0_20px_rgba(0,255,255,0.6))] hover:[filter:drop-shadow(0_0_40px_rgba(0,255,255,0.9))]">
           <div
             className="w-72 h-80 bg-[rgb(0,255,251)] p-0.5"
@@ -77,6 +81,7 @@ const Bounty_board = () => {
           </div>
         </div>
 
+        {/* Special Ops */}
         <div className="cursor-pointer relative transition-all duration-500 [filter:drop-shadow(0_0_20px_rgba(166,0,255,0.6))] hover:[filter:drop-shadow(0_0_40px_rgba(166,0,255,0.9))]">
           <div
             className="w-72 h-80 bg-[rgb(166,0,255)] p-0.5"

@@ -52,6 +52,7 @@ const CircuitBranch = ({ item, activeId, setActiveId }) => {
       onMouseLeave={() => setActiveId(null)}
       onClick={() => setActiveId(activeId === item.id ? null : item.id)}
     >
+      {/* --- DESKTOP CIRCUIT LINE (Only above 1600px) --- */}
       <div className="hidden min-[1600px]:block absolute left-[-100px] w-[100px] h-full pointer-events-none">
         <svg viewBox="0 0 100 100" className="w-full h-full fill-none overflow-visible">
           <path
@@ -77,10 +78,12 @@ const CircuitBranch = ({ item, activeId, setActiveId }) => {
         <div className={`relative w-11 h-11 transition-all duration-500 ${isHovered ? 'rotate-0 scale-110' : 'min-[1600px]:-rotate-45 rotate-0'}`}>
           <Image src={item.icon} alt={item.name} fill className={`object-contain transition-all duration-700 ${isHovered ? 'brightness-125' : 'grayscale opacity-30'}`} />
         </div>
+        {/* Corner Brackets */}
         <div className="absolute -top-1 -left-1 w-3 h-3 border-t border-l border-white/20" />
         <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-white/20" />
       </div>
 
+      {/* Text & Options */}
       <div className="ml-8 min-[1600px]:ml-12 flex flex-col justify-center">
         <h3 className={`text-2xl min-[1600px]:text-3xl font-black tracking-tighter italic transition-all duration-500 ${isHovered ? 'text-white translate-x-3' : 'text-white/5'}`}>
           {item.name}
@@ -107,13 +110,18 @@ const Atlas_socials = () => {
 
   return (
     <div className="relative flex items-center justify-center w-full min-h-screen bg-black font-mono overflow-x-hidden py-20 px-6 cursor-default">
+      
+      {/* Background Decor */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:40px_40px]" />
 
+      {/* Mouse Light (Only Desktop) */}
       <div className="hidden min-[1600px]:block pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
            style={{ background: `radial-gradient(circle 500px at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.03), transparent 80%)` }} />
 
       <div className="relative flex flex-col min-[1600px]:flex-row items-center gap-16 min-[1600px]:gap-56 w-full max-w-7xl">
+        
+        {/* --- CENTRAL HUB --- */}
         <div className="relative group flex justify-center w-full min-[1600px]:w-auto">
           <div className="relative bg-black border-x border-white/20 px-12 py-8 z-30 cursor-crosshair transition-all duration-500 group-hover:border-white/50">
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
@@ -128,10 +136,12 @@ const Atlas_socials = () => {
             </div>
           </div>
 
+          {/* Connection Lines (Adaptive) */}
           <div className="hidden min-[1600px]:block absolute top-1/2 -right-24 w-24 h-[1px] bg-gradient-to-r from-white/40 to-white/5" />
           <div className="min-[1600px]:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
 
+        {/* --- BRANCHES --- */}
         <div className="flex flex-col gap-6 w-full min-[1600px]:w-auto items-center min-[1600px]:items-start">
           {SOCIAL_LINKS.map((link) => (
             <CircuitBranch key={link.id} item={link} activeId={activeId} setActiveId={setActiveId} />
@@ -139,6 +149,7 @@ const Atlas_socials = () => {
         </div>
       </div>
 
+      {/* Technical Footer Accent */}
       <div className="absolute bottom-10 right-10 hidden sm:block">
         <div className="text-[9px] text-white/10 uppercase tracking-[1em] mb-1">Status: Operational</div>
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent to-white/20" />
