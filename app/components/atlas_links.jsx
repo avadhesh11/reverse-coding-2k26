@@ -11,7 +11,7 @@ const NAV_ITEMS = [
 const NavBranch = ({ item, activeId, onHover }) => {
   const isHovered = activeId === item.id;
   
-  // Position-based styles for the 1600px+ radial layout
+ 
   const posClasses = {
     top: "min-[1600px]:absolute min-[1600px]:-top-40 min-[1600px]:left-1/2 min-[1600px]:-translate-x-1/2 min-[1600px]:flex-col-reverse",
     bottom: "min-[1600px]:absolute min-[1600px]:-bottom-40 min-[1600px]:left-1/2 min-[1600px]:-translate-x-1/2 min-[1600px]:flex-col",
@@ -25,7 +25,7 @@ const NavBranch = ({ item, activeId, onHover }) => {
       onMouseEnter={() => onHover(item.id)}
       onMouseLeave={() => onHover(null)}
     >
-      {/* Circuit Line */}
+     
       <div className={`relative pointer-events-none 
         ${(item.pos === 'top' || item.pos === 'bottom') ? 'w-[2px] h-16' : 'h-[2px] w-20'} 
         max-[1599px]:w-[2px] max-[1599px]:h-10`}
@@ -46,7 +46,7 @@ const NavBranch = ({ item, activeId, onHover }) => {
         </svg>
       </div>
 
-      {/* Label Box */}
+    
       <div className={`
         relative px-8 py-3 border transition-all duration-500 bg-black z-10
         ${isHovered 
@@ -57,7 +57,7 @@ const NavBranch = ({ item, activeId, onHover }) => {
           {item.name}
         </span>
         
-        {/* Corner Accents */}
+       
         <div className={`absolute -top-1 -left-1 w-2 h-2 border-t border-l transition-colors ${isHovered ? 'border-[rgb(0,255,251)]' : 'border-white/20'}`} />
         <div className={`absolute -bottom-1 -right-1 w-2 h-2 border-b border-r transition-colors ${isHovered ? 'border-[rgb(0,255,251)]' : 'border-white/20'}`} />
       </div>
@@ -71,25 +71,25 @@ const Atlas_links = () => {
   return (
     <div className="relative flex items-center justify-center w-full min-h-[700px] bg-black font-mono overflow-hidden py-20 px-4">
       
-      {/* Background Matrix Polish */}
+    
       <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,251,0.05)_0%,transparent_70%)]" />
 
-      {/* --- CENTRAL CORE (LINKS) --- */}
+    
       <div className="relative flex flex-col min-[1600px]:block items-center">
         
-        {/* Mobile/Tablet Stack Order (Top Branch) */}
+      
         <div className="min-[1600px]:hidden flex flex-col items-center w-full">
            <NavBranch item={NAV_ITEMS[0]} activeId={activeId} onHover={setActiveId} />
         </div>
 
-        {/* The CPU Hub */}
+       
         <div className="relative group z-30 my-4 min-[1600px]:my-0">
           <div className={`
             relative bg-black border-2 px-12 py-8 transition-all duration-700
             ${activeId ? 'border-[rgb(0,255,251)] shadow-[0_0_40px_rgba(0,255,251,0.2)]' : 'border-white/20'}
           `}>
-            {/* Animated Scanning Bar inside Hub */}
+        
             <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent via-[rgb(0,255,251,0.05)] to-transparent -translate-y-full animate-[scan_3s_linear_infinite]" />
             
             <h1 className={`
@@ -100,12 +100,11 @@ const Atlas_links = () => {
             </h1>
             
             <div className="flex justify-between mt-4 border-t border-white/10 pt-2">
-              <span className="text-[9px] text-white/40 tracking-widest uppercase">System.Root</span>
               <span className="text-[9px] text-[rgb(0,255,251)] opacity-70 animate-pulse">● Online</span>
             </div>
           </div>
 
-          {/* Radial Branches (Visible only above 1600px) */}
+          
           <div className="hidden min-[1600px]:block">
             {NAV_ITEMS.map((item) => (
               <NavBranch key={item.id} item={item} activeId={activeId} onHover={setActiveId} />
@@ -121,12 +120,8 @@ const Atlas_links = () => {
 
       </div>
 
-      {/* Decorative Corner Meta */}
-      <div className="absolute top-10 left-10 hidden lg:block">
-        <div className="text-[10px] text-white/20 uppercase tracking-[1em]">Navigation_Matrix_V1</div>
-        <div className="h-[1px] w-24 bg-white/10 mt-1" />
-      </div>
-      
+     
+
       <style jsx global>{`
         @keyframes scan {
           0% { transform: translateY(-100%); }

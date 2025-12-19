@@ -1,232 +1,226 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./neon-button";
 
-const ArrowRight = ({ shaft = "bg-cyan-400", head = "border-l-cyan-400" }) => (
-  <div className="w-full flex items-center">
-    <div className={`relative w-full h-0.5 ${shaft}`}>
-      <span
-        className="
-          absolute right-0 top-1/2 -translate-y-1/2
-          border-l-[12px]
-          border-y-[6px] border-y-transparent
-        "
-        style={{ borderLeftColor: "currentColor" }}
-      />
-    </div>
-  </div>
-);
-const ArrowLeft = ({ shaft = "bg-red-500", head = "border-r-red-500" }) => (
-  <div className="w-full flex items-center">
-    <div className={`relative w-full h-[2px] ${shaft}`}>
-      <span
-        className="
-          absolute left-0 top-1/2 -translate-y-1/2
-          border-r-[12px]
-          border-y-[6px] border-y-transparent
-        "
-        style={{ borderRightColor: "currentColor" }}
-      />
-    </div>
-  </div>
-);
-const ArrowDown = ({ shaft = "bg-cyan-400", head = "border-t-cyan-400" }) => (
-  <div className="h-full flex justify-center">
-    <div className={`relative h-full w-[2px] ${shaft}`}>
-      <span
-        className="
-          absolute bottom-0 left-1/2 -translate-x-1/2
-          border-t-[12px]
-          border-x-[6px] border-x-transparent
-        "
-        style={{ borderTopColor: "currentColor" }}
-      />
-    </div>
-  </div>
-);
-const ArrowUp = ({ shaft = "bg-red-500", head = "border-b-red-500" }) => (
-  <div className="h-full flex justify-center">
-    <div className={`relative h-full w-[2px] ${shaft}`}>
-      <span
-        className="
-          absolute top-0 left-1/2 -translate-x-1/2
-          border-b-[12px]
-          border-x-[6px] border-x-transparent
-        "
-        style={{ borderBottomColor: "currentColor" }}
-      />
-    </div>
+const COLORS = {
+  cyan: "#00ffff",
+  red: "#ff003c",
+  green: "#00ff00",
+  dim: "#1a1a1a",
+  orange: "#ff7300",
+  fillCyan: "rgba(0, 40, 40, 0.9)",
+  fillRed: "rgba(40, 0, 0, 0.9)",
+  fillGreen: "rgba(0, 40, 0, 0.9)",
+  fillOrange: "rgb(33,16,0)",
+};
+
+
+const GlowWrapper = ({ color, children }) => (
+  <div 
+    className="transition-all duration-300 hover:scale-105"
+    style={{ filter: `drop-shadow(0 0 10px ${color}) drop-shadow(0 0 20px ${color}40)` }}
+  >
+    {children}
   </div>
 );
 
-const ArrowDiagonal = ({
-  direction = "down-right",
-  color = "bg-green-400",
+
+const DataPipe = ({ 
+  direction = "right", 
+  color = COLORS.cyan, 
+  speed = "2s", 
+  active = true, 
+  height = "20px",
+  showDot = true 
 }) => {
-  const rotation =
-    direction === "down-right"
-      ? "rotate-45"
-      : direction === "down-left"
-      ? "-rotate-45"
-      : "";
+  let d = "", viewBox = "0 0 100 20", width = "100%";
+
+  if (direction === "right") { d = "M0,10 L100,10"; viewBox = "0 0 100 20"; } 
+  else if (direction === "left") { d = "M100,10 L0,10"; viewBox = "0 0 100 20"; } 
+  else if (direction === "down") { 
+    d = "M10,0 L10,100"; 
+    viewBox = "0 0 20 100"; 
+    width = "20px"; 
+    height = height === "20px" ? "100%" : height;
+  }
+  else if (direction === "up") { 
+    d = "M10,100 L10,0"; 
+    viewBox = "0 0 20 100"; 
+    width = "20px"; 
+    height = height === "20px" ? "100%" : height;
+  }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
-      <div
-        className={`relative w-[120px] h-[2px] ${color} ${rotation}`}
-      >
-        <span
-          className="
-            absolute right-0 top-1/2 -translate-y-1/2
-            border-l-[10px]
-            border-y-[5px] border-y-transparent
-          "
-          style={{ borderLeftColor: "currentColor" }}
+    <div className={`flex items-center justify-center relative overflow-visible ${direction === 'down' || direction === 'up' ? '' : 'w-full'}`}
+         style={{ height: direction === 'down' || direction === 'up' ? height : 'auto' }}>
+      <svg width={width} height="100%" viewBox={viewBox} preserveAspectRatio="none" className="overflow-visible">
+        <path d={d} stroke={COLORS.dim} strokeWidth="3" fill="none" vectorEffect="non-scaling-stroke" />
+        <path
+          d={d}
+          stroke={color}
+          strokeWidth="3"
+          fill="none"
+          strokeDasharray="20 30"
+          vectorEffect="non-scaling-stroke"
+          className={active ? "opacity-100" : "opacity-20"}
+          style={{
+            animation: active ? `flow-${direction} ${speed} linear infinite` : "none",
+            filter: `drop-shadow(0 0 5px ${color})`,
+          }}
         />
-      </div>
+        {showDot && direction === "right" && <circle cx="100" cy="10" r="3" fill={color} />}
+        {showDot && direction === "left" && <circle cx="0" cy="10" r="3" fill={color} />}
+        {showDot && direction === "down" && <circle cx="10" cy="100" r="3" fill={color} />}
+        {showDot && direction === "up" && <circle cx="10" cy="0" r="3" fill={color} />}
+      </svg>
+      <style jsx>{`
+        @keyframes flow-right { to { stroke-dashoffset: -50; } }
+        @keyframes flow-left { to { stroke-dashoffset: 50; } }
+        @keyframes flow-down { to { stroke-dashoffset: -50; } }
+        @keyframes flow-up { to { stroke-dashoffset: 50; } }
+      `}</style>
     </div>
   );
-};
-
-
-const GlowWrapper = ({ glowColor, children }) => {
-  return (
-    <div
-      className="
-        transition-all duration-500 ease-out
-        hover:scale-[1.03]
-      "
-      style={{
-        // default: no glow
-        filter: "none",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.filter = `
-          drop-shadow(0 0 12px ${glowColor})
-          drop-shadow(0 0 22px ${glowColor})
-          drop-shadow(0 0 36px ${glowColor})
-        `;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.filter = "none";
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-
-const GLOW = {
-  default: "rgba(0,255,255,0.9)", // cyan
-  fail: "rgba(255,0,0,0.9)", // red
-  success: "rgba(90,216,0,0.9)", // green
-  god: "rgba(255,115,0,0.9)", // orange
 };
 
 const Flowchart = () => {
+  const [btnSize, setBtnSize] = useState({ width: 180, height: 60 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 600) setBtnSize({ width: 140, height: 45 });
+      else if (w < 1000) setBtnSize({ width: 150, height: 50 });
+      else setBtnSize({ width: 180, height: 60 });
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const cyanBtnProps = { 
+    borderColor: COLORS.cyan, 
+    glowColor: COLORS.cyan, 
+    fillColor: COLORS.fillCyan, 
+    ...btnSize 
+  };
+
   return (
-    <div className="w-full flex flex-col items-center text-white">
-      <h1 className="text-4xl mb-10 text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
-        The Answer Is The Starting Point
+    <div className="w-full flex flex-col items-center py-20 overflow-hidden relative">
+      
+  
+      <div className="absolute inset-0 opacity-10 pointer-events-none" 
+           style={{ backgroundImage: "radial-gradient(#00ffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+      <h1 className="text-2xl md:text-5xl mb-12 lg:mb-20 text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-900 font-bold tracking-widest drop-shadow-[0_0_15px_rgba(0,255,255,0.5)] px-4">
+        THE ANSWER IS THE STARTING POINT
       </h1>
 
-      <div className="w-full max-w-[1100px] mx-auto">
-        <div
-          className="
-            grid
-            grid-cols-[auto_1fr_auto_1fr_auto_1fr_auto]
-            grid-rows-5
-            gap-y-4
-            items-center
-          "
-        >
-          {/* Row 1 */}
-          <GlowWrapper glowColor={GLOW.default}>
-            <Button text="QUERY" fillColor="#003035" width={220} height={72} />
-          </GlowWrapper>
-          <ArrowRight />
-          <GlowWrapper glowColor={GLOW.default}>
-            <Button
-              text="OBSERVE"
-              fillColor="#003035"
-              width={220}
-              height={72}
-            />
-          </GlowWrapper>
-          <ArrowRight />
-          <GlowWrapper glowColor={GLOW.default}>
-            <Button
-              text="DECRYPT"
-              fillColor="#003035"
-              width={220}
-              height={72}
-            />
-          </GlowWrapper>
-          <ArrowRight />
-          <GlowWrapper glowColor={GLOW.default}>
-            <Button text="CODE" fillColor="#003035" width={180} height={72} />
-          </GlowWrapper>
-{/* Row 2 */}
-<div />
-<div />
-<ArrowUp shaft="bg-blue-300" />
-<div />
-<ArrowDown shaft="bg-cyan-400" />
-<div />
-<div />
-          {/* Row 3 */}
-          <div />
-          <div />
-          <GlowWrapper glowColor={GLOW.fail}>
-            <Button
-              text="Fail"
-              fillColor="rgb(33,0,0)"
-              borderColor="#ff0000"
-              width={220}
-              height={72}
-            />
-          </GlowWrapper>
-          <ArrowLeft />
-          <GlowWrapper glowColor={GLOW.default}>
-            <Button text="EXE" fillColor="#003035" width={220} height={72} />
-          </GlowWrapper>
-          <ArrowRight />
-          <GlowWrapper glowColor={GLOW.success}>
-            <Button
-              text="SUCCESS"
-              fillColor="rgb(0,33,33)"
-              borderColor="#5ad800"
-              width={220}
-              height={72}
-            />
-          </GlowWrapper>
+ 
+      <div className="flex flex-col items-center lg:hidden">
+        <GlowWrapper color={COLORS.cyan}><Button text="QUERY" {...cyanBtnProps} /></GlowWrapper>
+        <DataPipe direction="down" color={COLORS.cyan} height="40px" />
 
-          {/* Row 4 */}
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <ArrowDown shaft="bg-green-400" />
-          {/* Row 5 */}
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <GlowWrapper glowColor={GLOW.god}>
-            <Button
-              text="God_Mode"
-              fillColor="rgb(33,16,0)"
-              borderColor="rgb(255,115,0)"
-              width={220}
-              height={72}
-            />
+        <GlowWrapper color={COLORS.cyan}><Button text="OBSERVE" {...cyanBtnProps} /></GlowWrapper>
+        <DataPipe direction="down" color={COLORS.cyan} height="40px" />
+
+        <GlowWrapper color={COLORS.cyan}><Button text="DECRYPT" {...cyanBtnProps} /></GlowWrapper>
+        <DataPipe direction="down" color={COLORS.cyan} height="40px" />
+
+        <GlowWrapper color={COLORS.cyan}><Button text="CODE" {...cyanBtnProps} /></GlowWrapper>
+        <DataPipe direction="down" color={COLORS.cyan} height="40px" />
+
+        <GlowWrapper color={COLORS.cyan}><Button text="EXE" {...cyanBtnProps} /></GlowWrapper>
+        <DataPipe direction="down" color={COLORS.green} height="40px" />
+
+        <GlowWrapper color={COLORS.green}>
+          <Button text="SUCCESS" borderColor={COLORS.green} glowColor={COLORS.green} fillColor={COLORS.fillGreen} {...btnSize} />
+        </GlowWrapper>
+        <DataPipe direction="down" color={COLORS.orange} height="40px" />
+
+        <div className="relative group">
+          <div className="absolute inset-0 blur-[40px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" style={{ backgroundColor: COLORS.orange }} />
+          <GlowWrapper color={COLORS.orange}>
+            <Button text="GOD_MODE" borderColor={COLORS.orange} glowColor={COLORS.orange} fillColor={COLORS.fillOrange} {...btnSize} />
           </GlowWrapper>
         </div>
       </div>
+
+
+
+      <div className="hidden lg:block w-full max-w-[1400px] overflow-x-visible pb-10 px-4">
+        <div className="min-w-[900px]">
+          
+          <div className="grid grid-cols-[auto_1fr_auto_1fr_auto_1fr_auto] gap-y-0 gap-x-2 items-center justify-items-center">
+
+            
+            <GlowWrapper color={COLORS.cyan}><Button text="QUERY" {...cyanBtnProps} /></GlowWrapper>
+            <DataPipe direction="right" speed="1.5s" />
+            <GlowWrapper color={COLORS.cyan}><Button text="OBSERVE" {...cyanBtnProps} /></GlowWrapper>
+            <DataPipe direction="right" speed="1s" />
+           <GlowWrapper color={COLORS.cyan}><Button text="DECRYPT" {...cyanBtnProps} /></GlowWrapper>
+            <DataPipe direction="right" speed="0.5s" />
+             <GlowWrapper color={COLORS.cyan}><Button text="CODE" {...cyanBtnProps} /></GlowWrapper>
+
+
+           
+            <div />
+           <div />
+            
+           
+            <div className="h-20 flex items-center">
+              <DataPipe direction="up" color={COLORS.red} speed="3s" />
+            </div>
+
+           <div />
+             <div />
+            <div />
+
+            <div className="h-20 flex items-center">
+              <DataPipe direction="down" color={COLORS.cyan} speed="0.8s" />
+            </div>
+
+
+           <div /> <div />
+            
+            <GlowWrapper color={COLORS.red}>
+              <Button text="FAIL" borderColor={COLORS.red} glowColor={COLORS.red} fillColor={COLORS.fillRed} {...btnSize} />
+            </GlowWrapper>
+            
+            <div className="col-span-3 w-full">
+               <DataPipe direction="left" color={COLORS.red} speed="2s" showDot={false} />
+            </div>
+            
+            <GlowWrapper color={COLORS.cyan}>
+              <Button text="EXE" {...cyanBtnProps} />
+            </GlowWrapper>
+
+
+           <div /><div /><div /><div /><div /><div />
+             <div className="h-20 flex items-center"><DataPipe direction="down" color={COLORS.green} speed="0.5s" /></div>
+
+
+           <div /><div /><div />
+            
+            <div />
+
+            <div className="relative group">
+              <div className="absolute inset-0 blur-[40px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" style={{ backgroundColor: COLORS.orange }} />
+              <GlowWrapper color={COLORS.orange}>
+                <Button text="GOD_MODE" borderColor={COLORS.orange} glowColor={COLORS.orange} fillColor={COLORS.fillOrange} {...btnSize} />
+              </GlowWrapper>
+            </div>
+
+            <DataPipe direction="left" color={COLORS.orange} speed="1.5s" />
+            
+            <GlowWrapper color={COLORS.green}>
+              <Button text="SUCCESS" borderColor={COLORS.green} glowColor={COLORS.green} fillColor={COLORS.fillGreen} {...btnSize} />
+            </GlowWrapper>
+
+          </div>
+        </div>
+      </div>
+      
     </div>
   );
 };

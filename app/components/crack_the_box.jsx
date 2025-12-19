@@ -1,137 +1,144 @@
 "use client";
-
-import React, { useState } from "react";
-import Button from "./neon-button";
+import React, { useState, useEffect } from "react";
+import NeonButton from "./neon-button";
 
 const Crack_the_box = () => {
-  const [hoveredPath, setHoveredPath] = useState("none");
+  const [activeTarget, setActiveTarget] = useState(null);
+  
+  const [btnSize, setBtnSize] = useState({ width: 220, height: 75 });
+  const [layout, setLayout] = useState({
+    svgWidth: 150,
+    svgHeight: 200,
+    strokeWidth: 3,
+  });
 
-  const theme = {
-    cyan: {
-      bright: {
-        text: "#ffffff",
-        border: "#00ffff",
-        fill: "rgba(0,33,33,0.15)",
-        glow: "rgba(0,255,255,0.6)",
-      },
-      dull: {
-        text: "rgb(127,144,144,0.4)",
-        border: "rgb(0,127,127,0.2)",
-        fill: "rgba(0,33,33,0.15)",
-        glow: "rgba(0,255,255,0)",
-      },
-    },
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setBtnSize({ width: 140, height: 50 });
+        setLayout({ svgWidth: 80, svgHeight: 140, strokeWidth: 2 });
+      } else {
+        setBtnSize({ width: 220, height: 75 });
+        setLayout({ svgWidth: 150, svgHeight: 200, strokeWidth: 3 });
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const getProps = (id) => {
-    const isBright =
-      (id === "register" && hoveredPath !== "none") || hoveredPath === id;
-    return isBright ? theme.cyan.bright : theme.cyan.dull;
-  };
+  
+  const isWebsiteActive = activeTarget === "register" || activeTarget === "website";
+  const isUnstopActive = activeTarget === "register" || activeTarget === "unstop";
+  const isRegisterActive = activeTarget !== null; 
 
   return (
-    <div className="flex flex-col justify-center items-center mt-20 font-mono bg-black pb-20">
-      <div className="flex items-center gap-5 mb-16">
-        <h1 className="text-4xl font-extrabold text-white">
-          Can you crack the
-        </h1>
-        <h1 className="text-4xl font-extrabold text-[#00ffff] [text-shadow:_0_0_15px_rgba(0,255,255,0.6)]">
+    
+    <div className="mt-20 mb-20 flex flex-col justify-center items-center py-10 bg-black overflow-hidden relative gap-8 w-full">
+      
+  
+      <h1 className="text-3xl md:text-5xl font-bold tracking-widest text-white uppercase text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+        Can you crack the{" "}
+        <span className="text-[#00ffff] drop-shadow-[0_0_15px_rgba(0,255,255,0.8)]">
           Black Box?
-        </h1>
-      </div>
+        </span>
+      </h1>
+      
+      <div className="relative flex items-center gap-0">
+        
+      
+        <div 
+          className="relative z-20"
+          onMouseEnter={() => setActiveTarget("register")}
+          onMouseLeave={() => setActiveTarget(null)}
+        >
+          <div className={`transition-all duration-500 ${isRegisterActive ? "scale-105" : "animate-pulse"}`}>
+            <NeonButton 
+              text="REGISTER" 
+              width={btnSize.width} 
+              height={btnSize.height} 
+            />
+          </div>
+          
+        </div>
 
-      <div className="flex justify-center">
-        <div className="relative flex items-center gap-32">
-
+        <div className="relative z-10" style={{ width: layout.svgWidth, height: layout.svgHeight }}>
           <svg
-            className="absolute left-[225px] w-32 h-44 pointer-events-none overflow-visible"
-            viewBox="0 0 100 120"
+            width="100%"
+            height="100%"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="overflow-visible"
           >
+            <path d="M0,50 L50,50 L50,10 L100,10" fill="none" stroke="#1a1a1a" strokeWidth={layout.strokeWidth} />
+            <path d="M0,50 L50,50 L50,90 L100,90" fill="none" stroke="#1a1a1a" strokeWidth={layout.strokeWidth} />
 
-            <path
-              d="M 0 60 L 50 60 L 50 20 L 100 20 M 50 60 L 50 100 L 100 100"
-              stroke="rgba(0, 255, 255, 0.15)"
-              strokeWidth="1.5"
-              fill="none"
+            <path 
+              d="M0,50 L50,50 L50,10 L100,10" 
+              fill="none" 
+              stroke="#00ffff" 
+              strokeWidth={layout.strokeWidth}
+              strokeDasharray="200"
+              strokeDashoffset={isWebsiteActive ? "0" : "200"}
+              className="transition-all duration-500 ease-out"
+              style={{ filter: "drop-shadow(0 0 5px cyan)", opacity: isWebsiteActive ? 1 : 0 }}
+            />
+            
+            <path 
+              d="M0,50 L50,50 L50,90 L100,90" 
+              fill="none" 
+              stroke="#00ffff" 
+              strokeWidth={layout.strokeWidth}
+              strokeDasharray="200"
+              strokeDashoffset={isUnstopActive ? "0" : "200"} 
+              className="transition-all duration-500 ease-out"
+              style={{ filter: "drop-shadow(0 0 5px cyan)", opacity: isUnstopActive ? 1 : 0 }}
             />
 
-
-            {hoveredPath === "website" && (
-              <path
-                d="M 0 60 L 50 60 L 50 20 L 100 20"
-                stroke="#00ffff"
-                strokeWidth="2.5"
-                fill="none"
-                className="transition-all duration-300"
-                style={{ filter: "drop-shadow(0 0 5px #00ffff)" }}
-              />
-            )}
-
-
-            {hoveredPath === "unstop" && (
-              <path
-                d="M 0 60 L 50 60 L 50 100 L 100 100"
-                stroke="#00ffff"
-                strokeWidth="2.5"
-                fill="none"
-                className="transition-all duration-300"
-                style={{ filter: "drop-shadow(0 0 5px #00ffff)" }}
-              />
-            )}
-
-            <rect
-              x="48"
-              y="58"
-              width="4"
-              height="4"
-              fill={hoveredPath !== "none" ? "#00ffff" : "#333"}
-              transform="rotate(45 50 60)"
+            <rect 
+              x="46" y="46" width="8" height="8" 
+              fill={isRegisterActive ? "#00ffff" : "#333"}
               className="transition-colors duration-300"
+              transform="rotate(45 50 50)"
             />
           </svg>
+        </div>
 
-
-          <div className="z-10">
-            <Button
-              text="Register"
-              width={220}
-              height={75}
-              strokeWidth={2}
+        <div className="flex flex-col justify-between" style={{ height: layout.svgHeight }}>
+          
+          <div 
+            onMouseEnter={() => setActiveTarget("website")}
+            onMouseLeave={() => setActiveTarget(null)}
+            className={`
+              transition-all duration-500 
+              ${isWebsiteActive ? "opacity-100 translate-x-0 filter-none scale-105" : "opacity-30 -translate-x-4 grayscale scale-100"}
+            `}
+          >
+            <NeonButton 
+              text="WEBSITE" 
+              width={btnSize.width} 
+              height={btnSize.height} 
             />
           </div>
 
-
-          <div className="flex flex-col gap-12 z-10">
-            <div
-              onMouseEnter={() => setHoveredPath("website")}
-              onMouseLeave={() => setHoveredPath("none")}
-            >
-              <Button
-                text="WEBSITE"
-                width={220}
-                height={75}
-                textColor={getProps("website").text}
-                borderColor={getProps("website").border}
-                strokeWidth={2}
-              />
-            </div>
-
-            <div
-              onMouseEnter={() => setHoveredPath("unstop")}
-              onMouseLeave={() => setHoveredPath("none")}
-            >
-              <Button
-                text="UNSTOP"
-                width={220}
-                height={75}
-                textColor={getProps("unstop").text}
-                borderColor={getProps("unstop").border}
-
-                strokeWidth={2}
-              />
-            </div>
+          <div 
+            onMouseEnter={() => setActiveTarget("unstop")}
+            onMouseLeave={() => setActiveTarget(null)}
+            className={`
+              transition-all duration-500 
+              ${isUnstopActive ? "opacity-100 translate-x-0 filter-none scale-105" : "opacity-30 -translate-x-4 grayscale scale-100"}
+            `}
+          >
+            <NeonButton 
+              text="UNSTOP" 
+              width={btnSize.width} 
+              height={btnSize.height} 
+            />
           </div>
+
         </div>
+
       </div>
     </div>
   );
