@@ -15,12 +15,22 @@ import VoidParticles from "./components/VoidParticles";
 import BlueDataStream from "./components/BlueDataStream"; // 1. Import Particles
 import GlitchText from "./components/GlitchText";
 import GlitchImage from "./components/GlitchImage";
-import Main_button from "./components/main_button"
+import Main_button from "./components/main_button";
+import Snowfall from "react-snowfall";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+const getsnowcount=()=>{
+  const w = window.innerWidth;
+  if(w<480){
+    return 150;
+  }
+  else if(w<768) return 300
+  return 500;
+}
 
 export default function Home() {
   const [btnSize, setBtnSize] = useState({
@@ -47,7 +57,6 @@ export default function Home() {
 
   return (
     <div className="bg-black relative">
-   
       <Preloader />
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04] mix-blend-overlay">
         <div
@@ -69,7 +78,16 @@ export default function Home() {
         />
         <VoidParticles />
         <div className="absolute inset-0 z-10 pointer-events-none">
-          <BlueDataStream />
+          {/* <BlueDataStream /> */}
+          <Snowfall
+            color="white"
+            snowflakeCount={getsnowcount()}
+            style={{
+              // position: 'fixed',
+              width: "100vw",
+              height: "100vh",
+            }}
+          />
         </div>
 
         <div className="absolute inset-0 bg-black/60 z-10" />
@@ -94,9 +112,7 @@ export default function Home() {
                 tracking-[0.3em] sm:tracking-[0.35em]
                 font-light
               `}
-               
               >
-            
                 <HyperText text="CC × ENIGMA" className="" flame={true} />
               </p>
             </p>
@@ -128,7 +144,6 @@ export default function Home() {
             </div>
           </div>
 
-
           <div
             className="absolute top-[50%] sm:top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                           w-[85%] max-w-[320px] aspect-square 
@@ -155,18 +170,15 @@ export default function Home() {
                 </p>
               </FadeIn>
 
-
-                <p className="text-base sm:text-xl md:text-3xl lg:text-4xl font-medium uppercase tracking-[0.2em] text-cyan-400">
-                  21:00 – 23:00
-                </p>
+              <p className="text-base sm:text-xl md:text-3xl lg:text-4xl font-medium uppercase tracking-[0.2em] text-cyan-400">
+                21:00 – 23:00
+              </p>
             </div>
 
             <div className="w-full md:w-auto flex justify-start md:justify-end">
-
-                <div className="transition-all duration-500 ease-out hover:drop-shadow-[0_0_35px_rgba(0,255,255,0.6)] hover:scale-105">
-                  <Main_button text="Register.exe"/>
-                </div>
-
+              <div className="transition-all duration-500 ease-out hover:drop-shadow-[0_0_35px_rgba(0,255,255,0.6)] hover:scale-105">
+                <Main_button text="Register.exe" />
+              </div>
             </div>
           </div>
         </div>
