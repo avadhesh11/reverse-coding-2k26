@@ -12,7 +12,7 @@ import HyperText from "./components/HyperText";
 import FadeIn from "./components/FadeIn";
 import Preloader from "./components/Preloader";
 import VoidParticles from "./components/VoidParticles";
-import BlueDataStream from "./components/BlueDataStream"; // 1. Import Particles
+import BlueDataStream from "./components/BlueDataStream";
 import GlitchText from "./components/GlitchText";
 import GlitchImage from "./components/GlitchImage";
 import Main_button from "./components/main_button";
@@ -23,14 +23,12 @@ const orbitron = Orbitron({
   weight: ["400", "700"],
 });
 
-const getsnowcount=()=>{
-  const w = window.innerWidth;
-  if(w<480){
+const getsnowcount = (w: number) => {
+  if (w < 480) {
     return 150;
-  }
-  else if(w<768) return 300
+  } else if (w < 768) return 300;
   return 500;
-}
+};
 
 export default function Home() {
   const [btnSize, setBtnSize] = useState({
@@ -38,9 +36,10 @@ export default function Home() {
     height: 100,
     size: "lg",
   });
+  const [snowCount, setSnowCount] = useState(500);
 
   useEffect(() => {
-    const updateButtonSize = () => {
+    const updateSizes = () => {
       const w = window.innerWidth;
       if (w < 480) {
         setBtnSize({ width: 220, height: 70, size: "sm" });
@@ -49,10 +48,11 @@ export default function Home() {
       } else {
         setBtnSize({ width: 290, height: 100, size: "lg" });
       }
+      setSnowCount(getsnowcount(w));
     };
-    updateButtonSize();
-    window.addEventListener("resize", updateButtonSize);
-    return () => window.removeEventListener("resize", updateButtonSize);
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    return () => window.removeEventListener("resize", updateSizes);
   }, []);
 
   return (
@@ -81,7 +81,7 @@ export default function Home() {
           {/* <BlueDataStream /> */}
           <Snowfall
             color="white"
-            snowflakeCount={getsnowcount()}
+            snowflakeCount={snowCount}
             style={{
               // position: 'fixed',
               width: "100vw",
@@ -94,7 +94,7 @@ export default function Home() {
 
         <div className="relative z-20 min-h-screen">
           <div className="absolute top-[14%] sm:top-[18%] left-1/2 -translate-x-1/2 w-full px-4 text-center select-none">
-            <p
+            <div
               className={`
                 ${orbitron.className}
                 text-white/90
@@ -115,7 +115,7 @@ export default function Home() {
               >
                 <HyperText text="CC × ENIGMA" className="" flame={true} />
               </p>
-            </p>
+            </div>
 
             <div className="mt-2">
               <GlitchText
