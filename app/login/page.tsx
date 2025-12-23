@@ -29,7 +29,7 @@ export default function Page() {
 
   return () => subscription.unsubscribe()
 }, [])
-console.log(user);
+
 
 
   const signInWithGoogle = async () => {
@@ -69,9 +69,7 @@ const logout = async () => {
       {/* Content */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 text-white text-center">
         <h1 className="text-5xl font-bold">Reverse Coding 2K26</h1>
-  <p className="text-lg opacity-80">
-          Login to register for the event
-        </p>
+  
     {user ? (
   <button
     onClick={logout}
@@ -87,6 +85,10 @@ const logout = async () => {
     Logout
   </button>
 ) : (
+  <>
+  <p className="text-lg opacity-80">
+          Login to register for the event
+        </p>
   <button
     onClick={signInWithGoogle}
     className="flex items-center gap-3 px-6 py-3 rounded-md bg-white text-black font-medium shadow-md hover:shadow-lg transition active:scale-[0.97]"
@@ -98,6 +100,7 @@ const logout = async () => {
     />
     Continue with Google
   </button>
+  </>
 )}
 
        

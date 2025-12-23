@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 import { Audiowide } from "next/font/google";
 import "./navbar.css";
+import { createClient_client } from "@/utils/supabaseClient";
 
 const audiowide = Audiowide({
   weight: "400",
@@ -12,6 +13,26 @@ const audiowide = Audiowide({
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+   const supabase = createClient_client();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+   const [firstName,setfirstName]=useState("SIGN-IN");
+  useEffect(() => {
+  const getUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    setUser(user)
+    setfirstName( user?.user_metadata?.given_name || user?.user_metadata?.full_name?.split(" ")[0] )
+    setLoading(false)
+  }
+
+  getUser()
+
+
+}, [user])
+
 
   return (
     <>
@@ -55,7 +76,7 @@ export default function Navbar() {
            
             <div className="hidden md:flex justify-center gap-20">
               <Link className="nav-link" href="/team"><p className="text-2xl">RULES</p></Link>
-              <Link className="nav-link" href="/login"><p className="text-2xl">SIGN-IN</p></Link>
+              <Link className="nav-link" href="/login"><p className="text-2xl">{firstName || "SIGN-IN"}</p></Link>
             </div>
           </div>
         </div>
@@ -90,7 +111,7 @@ export default function Navbar() {
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/">HOME</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/team">TEAM</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/team">RULES</Link>
-          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/login">SIGN IN</Link>
+          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/login">{firstName || "SIGN-IN"}</Link>
         </div>
       </aside>
     </>
