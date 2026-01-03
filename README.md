@@ -13,6 +13,9 @@ In Reverse Coding, participants are presented with a **black box interface**:
 This challenges participants to think critically, recognize patterns, and demonstrate their problem-solving skills without explicit instructions.
 
 ## Tech Stack
+
+Design (by @MrQuantum1915): [Figma](https://www.figma.com/site/lJRYGJ69cRKp5DLjasc3ft/Website?node-id=0-1&t=noOlhMHRDrxEjRDG-1)
+
 Framework: [Next.js](https://nextjs.org/) 14+ (App Router)
 
 Styling: [Tailwind](https://tailwindcss.com/) CSS (Custom Cyberpunk/Neon Config)

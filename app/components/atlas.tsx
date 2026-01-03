@@ -17,19 +17,19 @@ function Atlas() {
         ATLAS
       </div>
 
-      <div className="flex flex-col lg:flex-row w-full p-4 sm:p-6 min-h-[500px]">
-        <div className="w-full lg:w-[45%] flex items-center justify-center border-white/10 rounded-lg p-4 sm:p-10">
+      <div className="flex flex-col lg:flex-row w-full min-h-[500px] ">
+        <div className="w-full lg:w-[45%] flex items-center justify-center border-white/10 rounded-lg">
           <Atlas_links />
         </div>
 
-        <div
-          className="  relative my-4 lg:my-0 lg:mx-6 self-stretch w-full h-px lg:w-px lg:h-auto bg-[rgb(0,209,209)] opacity-90  before:content-[''] before:absolute
-    before:inset-0
-    before:bg-[rgb(0,209,209)]
-    before:blur-sm
-    before:opacity-60
-  "
-        ></div>
+          {/* <div
+            className="  relative my-8 lg:my-0 lg:mx-6 self-stretch w-full h-px lg:w-px lg:h-auto bg-[rgb(0,209,209)] opacity-90  before:content-[''] before:absolute
+      before:inset-0
+      before:bg-[rgb(0,209,209)]
+      before:blur-sm
+      before:opacity-60
+    "
+          ></div> */}
         <div className="flex-1 w-full flex items-center justify-center border-white/10 rounded-lg overflow-x-auto overflow-y-hidden">
           <div className="min-w-[320px] w-full h-full">
             <Atlas_socials />

@@ -12,7 +12,6 @@ import HyperText from "./components/HyperText";
 import FadeIn from "./components/FadeIn";
 import Preloader from "./components/Preloader";
 import VoidParticles from "./components/VoidParticles";
-import BlueDataStream from "./components/BlueDataStream";
 import GlitchText from "./components/GlitchText";
 import GlitchImage from "./components/GlitchImage";
 import Main_button from "./components/main_button";
@@ -36,7 +35,7 @@ export default function Home() {
     height: 100,
     size: "lg",
   });
-  const [snowCount, setSnowCount] = useState(100);
+  const [snowCount, setSnowCount] = useState(50);
 
   useEffect(() => {
     const updateSizes = () => {
@@ -58,15 +57,7 @@ export default function Home() {
   return (
     <div className="bg-black relative">
       <Preloader />
-      {/* <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04] mix-blend-overlay">
-        <div
-          className="absolute inset-0 bg-repeat w-full h-full"
-          style={{
-            backgroundImage:
-              'url("https://grainy-gradients.vercel.app/noise.svg")',
-          }}
-        />
-      </div> */}
+
 
       <div className="relative min-h-screen text-white overflow-hidden">
         <Image
@@ -74,16 +65,14 @@ export default function Home() {
           alt="Background"
           fill
           priority
-          className="object-cover object-center z-0 opacity-70 scale-120"
+          className="object-cover z-0 object-center opacity-70 scale-120"
         />
         <VoidParticles />
-        <div className="absolute inset-0 z-10 pointer-events-none">
-          {/* <BlueDataStream /> */}
+        <div className="fixed inset-0 pointer-events-none">
           <Snowfall
-            color="white"
+            color="#808080"
             snowflakeCount={snowCount}
             style={{
-              // position: 'fixed',
               width: "100vw",
               height: "100vh",
             }}
@@ -91,6 +80,7 @@ export default function Home() {
         </div>
 
         <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black via-black/60 to-transparent z-10" />
 
         <div className="relative z-20 min-h-screen">
           <div className="absolute top-[14%] sm:top-[25%] left-1/2 -translate-x-1/2 w-full px-4 text-center select-none">
@@ -151,7 +141,7 @@ export default function Home() {
                           md:max-w-[600px] lg:max-w-[700px] 
                           z-10 pointer-events-none"
           >
-            <div className="w-full h-full pointer-events-auto">
+            <div className="w-full h-full pointer-events-none">
               <TesseractViewer />
             </div>
           </div>

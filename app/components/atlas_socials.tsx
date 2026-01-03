@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 const SOCIAL_LINKS = [
@@ -10,12 +10,12 @@ const SOCIAL_LINKS = [
   },
   { 
     id: "mail", name: "Gmail", icon: "/gmail.svg", color: "#EA4335", 
-    d_path: "M 0 50 L 40 50 L 70 35 L 100 35",
+    d_path: "M 0 50 L 30 50 L 60 85 L 100 85",
     subOptions: [{ label: "CC", href: "#" }, { label: "Enigma", href: "#" }]
   },
   { 
     id: "disc", name: "Discord", icon: "/discord.svg", color: "#5865F2", 
-    d_path: "M 0 50 L 40 50 L 70 65 L 100 65",
+    d_path: "M 0 50 L 30 50 L 60 15 L 100 15",
     subOptions: [{ label: "Server", href: "#" }]
   },
   { 
@@ -25,14 +25,14 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const SubOption = ({ label, href, isVisible, delay }) => (
+const SubOption = ({ label, href, isVisible, delay }: { label: string; href: string; isVisible: boolean; delay: number }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     className={`
-      px-5 py-2 border text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-300 backdrop-blur-md cursor-pointer
+      px-4 py-1.5 border text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-300 backdrop-blur-md cursor-pointer
       ${isVisible 
         ? 'opacity-100 translate-x-0 border-white/20 text-white hover:bg-white hover:text-black hover:border-white' 
         : 'opacity-0 -translate-x-4 pointer-events-none border-transparent text-transparent'}
@@ -42,19 +42,26 @@ const SubOption = ({ label, href, isVisible, delay }) => (
   </a>
 );
 
-const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
+const CircuitBranch = ({ item, activeId, setActiveId, index, side = "right" }: { 
+  item: typeof SOCIAL_LINKS[0]; 
+  activeId: string | null; 
+  setActiveId: (id: string | null) => void; 
+  index: number;
+  side?: "left" | "right";
+}) => {
   const isHovered = activeId === item.id;
   const isDimmed = activeId !== null && activeId !== item.id;
+  const isLeft = side === "left";
 
   return (
     <div 
-      className={`group relative flex flex-row items-center h-28 min-[1600px]:h-32 cursor-pointer w-full min-[1600px]:w-auto transition-opacity duration-500 ${isDimmed ? 'opacity-30 blur-[1px]' : 'opacity-100'}`}
+      className={`group relative flex ${isLeft ? 'min-[1600px]:flex-row-reverse' : 'flex-row'} justify-center items-center h-20 min-[1600px]:h-24 cursor-pointer w-full min-[1600px]:w-auto transition-opacity duration-500 ${isDimmed ? 'opacity-30 blur-[1px]' : 'opacity-100'}`}
       onMouseEnter={() => setActiveId(item.id)}
       onMouseLeave={() => setActiveId(null)}
       onClick={() => setActiveId(activeId === item.id ? null : item.id)}
     >
-      <div className="hidden min-[1600px]:block absolute left-[-100px] w-[100px] h-full pointer-events-none">
-        <svg viewBox="0 0 100 100" className="w-full h-full fill-none overflow-visible">
+      <div className={`hidden min-[1600px]:block absolute ${isLeft ? 'right-[-100px]' : 'left-[-100px]'} w-[100px] h-full pointer-events-none`}>
+        <svg viewBox="0 0 100 100" className={`w-full h-full fill-none overflow-visible ${isLeft ? 'scale-x-[-1]' : ''}`}>
           <path d={item.d_path} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
           
           <path
@@ -72,7 +79,7 @@ const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
         </svg>
       </div>
 
-      <div className="min-[1600px]:hidden absolute left-10 -top-6 w-[1px] h-6 bg-gradient-to-b from-white/30 to-transparent" />
+      <div className="min-[1600px]:hidden absolute left-1/2 -translate-x-1/2 -top-6 w-[1px] h-6 bg-gradient-to-b from-white/30 to-transparent" />
 
   
       <div 
@@ -80,7 +87,7 @@ const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
         style={{ animation: isHovered ? 'none' : `float 6s ease-in-out infinite ${index * 0.5}s` }}
       >
         <div className={`
-          relative w-20 h-20 border transition-all duration-500 flex items-center justify-center overflow-hidden
+          relative w-16 h-16 border transition-all duration-500 flex items-center justify-center overflow-hidden
           ${isHovered 
             ? 'border-white scale-110 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] rotate-0 bg-black' 
             : 'border-white/20 bg-white/5 min-[1600px]:rotate-45 rotate-0'}
@@ -93,7 +100,7 @@ const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
              />
           )}
 
-          <div className={`relative w-11 h-11 transition-all duration-500 ${isHovered ? 'rotate-0 scale-110' : 'min-[1600px]:-rotate-45 rotate-0'}`}>
+          <div className={`relative w-8 h-8 transition-all duration-500 ${isHovered ? 'rotate-0 scale-110' : 'min-[1600px]:-rotate-45 rotate-0'}`}>
             <Image 
               src={item.icon} 
               alt={item.name} 
@@ -109,11 +116,11 @@ const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
         </div>
       </div>
 
-      <div className="ml-8 min-[1600px]:ml-12 flex flex-col justify-center">
-        <h3 className={`text-2xl min-[1600px]:text-3xl font-black tracking-tighter italic transition-all duration-500 ${isHovered ? 'text-white translate-x-3' : 'text-white/50'}`}>
+      <div className={`${isLeft ? 'min-[1600px]:mr-8 min-[1600px]:ml-0' : 'min-[1600px]:ml-8'} ml-6 flex flex-col justify-center items-center`}>
+        <h3 className={`text-center text-xl min-[1600px]:text-2xl font-black tracking-tighter italic transition-all duration-500 ${isHovered ? (isLeft ? '-translate-x-3' : 'translate-x-3') + ' text-white' : 'text-white/50'}`}>
           {item.name}
         </h3>
-        <div className="mt-3 flex gap-3 items-center h-10">
+        <div className="mt-2 flex gap-3 items-center justify-center h-8">
           {item.subOptions.map((opt, idx) => (
             <SubOption key={opt.label} label={opt.label} href={opt.href} isVisible={isHovered} delay={idx * 100} />
           ))}
@@ -124,10 +131,13 @@ const CircuitBranch = ({ item, activeId, setActiveId, index }) => {
 };
 
 const Atlas_socials = () => {
-  const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  
+  const leftLinks = SOCIAL_LINKS.slice(0, 2);
+  const rightLinks = SOCIAL_LINKS.slice(2);
 
   return (
-    <div className="relative flex items-center justify-center w-full min-h-screen bg-black font-mono overflow-x-hidden py-20 px-6 cursor-default">
+    <div className="relative flex items-center justify-center w-full h-full bg-black font-mono overflow-x-hidden  cursor-default">
       
       <style jsx global>{`
         @keyframes float {
@@ -146,28 +156,33 @@ const Atlas_socials = () => {
         }
       `}</style>
 
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-      <div className="relative flex flex-col min-[1600px]:flex-row items-center gap-16 min-[1600px]:gap-56 w-full max-w-7xl">
+      <div className="relative flex flex-col min-[1600px]:flex-row items-center gap-10 min-[1600px]:gap-20 w-full max-w-7xl">
         
-        <div className="relative group flex justify-center w-full min-[1600px]:w-auto">
-          <div className="relative bg-black border-x border-white/30 px-12 py-8 z-30 transition-all duration-500 group-hover:border-white/60 animate-[float_8s_ease-in-out_infinite]">
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+        {/* Left Column */}
+        <div className="relative flex flex-col gap-6 w-full min-[1600px]:w-auto items-center min-[1600px]:items-end order-2 min-[1600px]:order-1">
+          <div className="hidden min-[1600px]:block absolute right-[-100px] top-12 bottom-12 border-r border-dashed border-white/30" />
+          {leftLinks.map((link, idx) => (
+            <CircuitBranch key={link.id} item={link} index={idx} activeId={activeId} setActiveId={setActiveId} side="left" />
+          ))}
+        </div>
+
+        {/* Center Label */}
+        <div className="relative group flex justify-center w-full min-[1600px]:w-auto order-1 min-[1600px]:order-2">
+          <div className="relative bg-black border-2 border-white/30 p-2 z-30 transition-all duration-500 group-hover:border-white/60 animate-[float_8s_ease-in-out_infinite]">
             
-            <h2 className="text-4xl sm:text-6xl font-black text-white tracking-[0.3em] uppercase text-center min-[1600px]:text-left">
+            <h2 className="text-xl sm:text-2xl p-2 font-black text-white tracking-[0.3em] uppercase text-center min-[1600px]:text-left">
               SOCIAL
             </h2>
           </div>
-
-          <div className="hidden min-[1600px]:block absolute top-1/2 -right-24 w-24 h-[1px] bg-gradient-to-r from-white/50 to-white/10" />
-          <div className="min-[1600px]:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 w-[1px] h-10 bg-gradient-to-b from-white/50 to-transparent" />
         </div>
 
-        <div className="flex flex-col gap-6 w-full min-[1600px]:w-auto items-center min-[1600px]:items-start">
-          {SOCIAL_LINKS.map((link, idx) => (
-            <CircuitBranch key={link.id} item={link} index={idx} activeId={activeId} setActiveId={setActiveId} />
+        {/* Right Column */}
+        <div className="relative flex flex-col gap-6 w-full min-[1600px]:w-auto items-center min-[1600px]:items-start order-3">
+          <div className="hidden min-[1600px]:block absolute left-[-100px] top-12 bottom-12 border-l border-dashed border-white/30" />
+          {rightLinks.map((link, idx) => (
+            <CircuitBranch key={link.id} item={link} index={idx + 2} activeId={activeId} setActiveId={setActiveId} side="right" />
           ))}
         </div>
       </div>

@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   text,
   borderColor = "#00FFFF",
-  fillColor = "rgba(0, 40, 40, 0.9)",
+  fillColor = "rgba(0, 10, 10, 0.9)",
   textColor = "white",
   glowColor,
   strokeWidth = 2,

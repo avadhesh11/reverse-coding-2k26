@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import NeonButton from "./neon-button";
 
 const Crack_the_box = () => {
@@ -9,7 +9,7 @@ const Crack_the_box = () => {
   const [layout, setLayout] = useState({
     svgWidth: 150,
     svgHeight: 200,
-    strokeWidth: 3,
+    strokeWidth: 1,
   });
 
   useEffect(() => {
@@ -17,10 +17,10 @@ const Crack_the_box = () => {
       const w = window.innerWidth;
       if (w < 640) {
         setBtnSize({ width: 140, height: 50 });
-        setLayout({ svgWidth: 80, svgHeight: 140, strokeWidth: 2 });
+        setLayout({ svgWidth: 80, svgHeight: 140, strokeWidth: 0.5 });
       } else {
         setBtnSize({ width: 220, height: 75 });
-        setLayout({ svgWidth: 150, svgHeight: 200, strokeWidth: 3 });
+        setLayout({ svgWidth: 150, svgHeight: 200, strokeWidth: 1 });
       }
     };
     handleResize();
@@ -33,9 +33,12 @@ const Crack_the_box = () => {
   const isUnstopActive = activeTarget === "register" || activeTarget === "unstop";
   const isRegisterActive = activeTarget !== null; 
 
+  const pathYTop = ((btnSize.height / 2) / layout.svgHeight) * 100;
+  const pathYBottom = 100 - pathYTop;
+
   return (
     
-    <div className="mt-20 mb-20 flex flex-col justify-center items-center py-10 bg-black overflow-hidden relative gap-8 w-full">
+    <div className="mt-20 mb-20 flex flex-col justify-center items-center py-10 overflow-hidden relative gap-8 w-full">
       
   
       <h1 className="text-3xl md:text-5xl font-bold tracking-widest text-white uppercase text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
@@ -63,7 +66,7 @@ const Crack_the_box = () => {
           
         </div>
 
-        <div className="relative z-10" style={{ width: layout.svgWidth, height: layout.svgHeight }}>
+        <div className="relative" style={{ width: layout.svgWidth, height: layout.svgHeight }}>
           <svg
             width="100%"
             height="100%"
@@ -71,11 +74,11 @@ const Crack_the_box = () => {
             preserveAspectRatio="none"
             className="overflow-visible"
           >
-            <path d="M0,50 L50,50 L50,10 L100,10" fill="none" stroke="#1a1a1a" strokeWidth={layout.strokeWidth} />
-            <path d="M0,50 L50,50 L50,90 L100,90" fill="none" stroke="#1a1a1a" strokeWidth={layout.strokeWidth} />
+            <path d={`M0,50 L50,50 L50,${pathYTop} L98,${pathYTop}`} fill="none" stroke="#333333" strokeWidth={layout.strokeWidth} />
+            <path d={`M0,50 L50,50 L50,${pathYBottom} L98,${pathYBottom}`} fill="none" stroke="#333333" strokeWidth={layout.strokeWidth} />
 
             <path 
-              d="M0,50 L50,50 L50,10 L100,10" 
+              d={`M0,50 L50,50 L50,${pathYTop} L98,${pathYTop}`} 
               fill="none" 
               stroke="#00ffff" 
               strokeWidth={layout.strokeWidth}
@@ -86,7 +89,7 @@ const Crack_the_box = () => {
             />
             
             <path 
-              d="M0,50 L50,50 L50,90 L100,90" 
+              d={`M0,50 L50,50 L50,${pathYBottom} L95,${pathYBottom}`} 
               fill="none" 
               stroke="#00ffff" 
               strokeWidth={layout.strokeWidth}
@@ -97,10 +100,9 @@ const Crack_the_box = () => {
             />
 
             <rect 
-              x="46" y="46" width="8" height="8" 
-              fill={isRegisterActive ? "#00ffff" : "#333"}
-              className="transition-colors duration-300"
-              transform="rotate(45 50 50)"
+              x="46" y="46" width="6" height="5" 
+              fill={`${isRegisterActive ? "#ffffff" : "#7a7a7a"}`}
+              className="translate-y-0.5 transition-colors duration-300"
             />
           </svg>
         </div>
@@ -112,7 +114,7 @@ const Crack_the_box = () => {
             onMouseLeave={() => setActiveTarget(null)}
             className={`
               transition-all duration-500 
-              ${isWebsiteActive ? "opacity-100 translate-x-0 filter-none scale-105" : "opacity-30 -translate-x-4 grayscale scale-100"}
+              ${isWebsiteActive ? "opacity-100 filter-none scale-105" : "opacity-30  grayscale scale-100"}
             `}
           >
             <NeonButton 
@@ -127,7 +129,7 @@ const Crack_the_box = () => {
             onMouseLeave={() => setActiveTarget(null)}
             className={`
               transition-all duration-500 
-              ${isUnstopActive ? "opacity-100 translate-x-0 filter-none scale-105" : "opacity-30 -translate-x-4 grayscale scale-100"}
+              ${isUnstopActive ? "opacity-100 filter-none scale-105" : "opacity-30  grayscale scale-100"}
             `}
           >
             <NeonButton 
