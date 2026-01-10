@@ -31,5 +31,5 @@ export async function GET(request: NextRequest) {
   }
 
   // ✅ SINGLE, FINAL REDIRECT
-  return NextResponse.redirect(`${origin}/`);
+  return NextResponse.redirect(`${origin}/login`);
 }

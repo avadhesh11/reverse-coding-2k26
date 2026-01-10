@@ -1,6 +1,8 @@
 # Reverse Coding 2k26
 
-A website for hosting the **CCxEnigma: TESSERACT** event — a unique programming challenge where participants reverse engineer the logic from input-output patterns.
+A website/platform for hosting the OG - **CCxEnigma: TESSERACT** event — a unique programming challenge where participants reverse engineer the logic from input-output patterns.
+
+You can use this platform for hosting your reverse coding event too.
 
 ## About the Event
 
@@ -12,7 +14,20 @@ In Reverse Coding, participants are presented with a **black box interface**:
 
 This challenges participants to think critically, recognize patterns, and demonstrate their problem-solving skills without explicit instructions.
 
+
+## Somethings about the platform:
+
+- The platform capable of full **Registration**, display **Leaderboard**, and most important thing -> Running the **Black Box**.
+
+- The main thing is that participant should not get the **code** behind the black box in any case. So I used this architecture:
+
+
+
+
 ## Tech Stack
+
+Design (by @MrQuantum1915): [Figma](https://www.figma.com/site/lJRYGJ69cRKp5DLjasc3ft/Website?node-id=0-1&t=noOlhMHRDrxEjRDG-1)
+
 Framework: [Next.js](https://nextjs.org/) 14+ (App Router)
 
 Styling: [Tailwind](https://tailwindcss.com/) CSS (Custom Cyberpunk/Neon Config)
