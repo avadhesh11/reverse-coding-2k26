@@ -63,8 +63,18 @@ yarn install
 # or
 pnpm install
 ```
+3. Add this corresponding env variable to `.env.local`
 
-3. Run the development server:
+```bash
+NEXT_PUBLIC_SUPABASE_URL="vvv"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="www"
+
+CODEFORCES_API_KEY="xxx"
+CODEFORCES_API_SECRET="yyy"
+NEXT_PUBLIC_CONTEST_ID=zzz #codeforce contest id
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
