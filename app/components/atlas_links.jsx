@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 const NAV_ITEMS = [
   { id: "sandbox", name: "SandBox", pos: "top", path: "M 50 100 L 50 0", m_path: "M 50 0 L 50 40" },
-  { id: "home", name: "Home", pos: "left", path: "M 100 50 L 0 50", m_path: "M 50 0 L 50 40" },
+  { id: "", name: "Home", pos: "left", path: "M 100 50 L 0 50", m_path: "M 50 0 L 50 40" },
   { id: "rules", name: "Rules", pos: "right", path: "M 0 50 L 100 50", m_path: "M 50 0 L 50 40" },
   { id: "team", name: "Team", pos: "bottom", path: "M 50 0 L 50 100", m_path: "M 50 0 L 50 40" },
 ];

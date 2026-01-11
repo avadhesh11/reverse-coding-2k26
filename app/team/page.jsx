@@ -1,11 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Linkedin, Instagram } from "lucide-react";
+import { Orbitron } from "next/font/google";
+import VoidParticles from "../components/VoidParticles";
+import Snowfall from "react-snowfall";
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "900"],
+});
 
 const getLocalPhoto = (fileName) => {
   if (!fileName) return null;
-  return `/photos/${fileName}`;
+  return `/PHOTOS/${fileName}`;
 };
 
 const linkedinHelper = (v) => {
@@ -27,13 +35,13 @@ const instagramHelper = (v) => {
 export const websiteTeam = [
   {
     name: "Darshan Patel ",
-    photo: getLocalPhoto("darshan.jpeg"),
+    photo: getLocalPhoto("DARSHAN.jpeg"),
     linkedin: linkedinHelper("darshan-patel-1713062a4"),
     instagram: instagramHelper("mrquantum_1915"),
   },
   {
     name: "Ansh Ahuja",
-    photo: getLocalPhoto("ansh.jpeg"),
+    photo: getLocalPhoto("ANSH.jpeg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/ansh-ahuja-3081662b9/"
     ),
@@ -41,9 +49,40 @@ export const websiteTeam = [
   },
   {
     name: "Avadhesh Nagar",
-    photo: getLocalPhoto("avadhesh.webp"),
+    photo: getLocalPhoto("Avadhesh.webp"),
     linkedin: linkedinHelper("https://www.linkedin.com/in/avadheshnagar"),
     instagram: instagramHelper("avadhesh_nagar_"),
+  },
+];
+
+export const problemSetters = [
+  {
+    name: "Darshan Patel ",
+    photo: getLocalPhoto("DARSHAN.jpeg"),
+    linkedin: linkedinHelper("darshan-patel-1713062a4"),
+    instagram: instagramHelper("mrquantum_1915"),
+  },
+  {
+    name: "Arpit Maheshwari",
+    photo: getLocalPhoto("Arpit.jpg"),
+    linkedin: linkedinHelper(
+      "https://www.linkedin.com/in/arpit-maheshwari-bb59a2336/"
+    ),
+    instagram: instagramHelper("Arpit_maheshwari_07"),
+  },
+  {
+    name: "Ashay Gupta",
+    photo: getLocalPhoto("Ashay.jpg"),
+    linkedin: linkedinHelper(
+      "https://www.linkedin.com/in/ashay-gupta-30068831b"
+    ),
+    instagram: null,
+  },
+  {
+    name: "Tarun Jain",
+    photo: getLocalPhoto("tarun.jpeg"),
+    linkedin: linkedinHelper("www.linkedin.com/in/tarundeepakjain"),
+    instagram: instagramHelper("https://www.instagram.com/tarundeepakjain/"),
   },
 ];
 
@@ -64,7 +103,7 @@ export const prTeam = [
   },
   {
     name: "Arpit Maheshwari",
-    photo: getLocalPhoto("arpit.jpg"),
+    photo: getLocalPhoto("Arpit.jpg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/arpit-maheshwari-bb59a2336/"
     ),
@@ -72,7 +111,7 @@ export const prTeam = [
   },
   {
     name: "Kartavya Kataria",
-    photo: getLocalPhoto("kartavya.png"),
+    photo: getLocalPhoto("Kartavya.png"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/kartavya-kataria-35aa0136a"
     ),
@@ -80,7 +119,7 @@ export const prTeam = [
   },
   {
     name: "Vedant Songire",
-    photo: getLocalPhoto("vedant.jpg"),
+    photo: getLocalPhoto("Vedant.jpg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/vedant-songire-018006394/"
     ),
@@ -88,7 +127,7 @@ export const prTeam = [
   },
   {
     name: "Palin Jena",
-    photo: getLocalPhoto("palin.jpeg"),
+    photo: getLocalPhoto("PALIN.jpeg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/palin-jena-98b220377"
     ),
@@ -96,7 +135,7 @@ export const prTeam = [
   },
   {
     name: "Jaynil Parmar",
-    photo: getLocalPhoto("jaynil.jpg"),
+    photo: getLocalPhoto("JAYNIL.jpg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/jaynil-parmar-b8b45b396"
     ),
@@ -160,14 +199,16 @@ export const prTeam = [
 
 export const designTeam = [
   {
-    name: "Neha Nupur",
-    photo: getLocalPhoto("neha.jpg"),
-    linkedin: linkedinHelper("https://www.linkedin.com/in/nehanupur"),
-    instagram: instagramHelper("https://instagram.com/iamnehanupur"),
+    name: "Abhishek yadav ",
+    photo: getLocalPhoto("yadav.jpg"),
+    linkedin: linkedinHelper(
+      "https://www.linkedin.com/in/abhishek-yadav-9406683a4/"
+    ),
+    instagram: null,
   },
   {
     name: "Aman Kumar",
-    photo: getLocalPhoto("aman.jpeg"),
+    photo: getLocalPhoto("AMAN.jpeg"),
     linkedin: linkedinHelper(
       "https://www.linkedin.com/in/aman-prajapati-10892b380?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     ),
@@ -180,6 +221,12 @@ export const designTeam = [
     instagram: instagramHelper("https://www.instagram.com/dubeyharshittt/"),
   },
   {
+    name: "Neha Nupur",
+    photo: getLocalPhoto("NEHA.jpg"),
+    linkedin: linkedinHelper("https://www.linkedin.com/in/nehanupur"),
+    instagram: instagramHelper("https://instagram.com/iamnehanupur"),
+  },
+  {
     name: "Kaushik Nanda Upadhaya",
     photo: getLocalPhoto("kaushik.jpg"),
     linkedin: linkedinHelper(
@@ -189,147 +236,147 @@ export const designTeam = [
       "https://www.instagram.com/kaushik_nu?igsh=MXI4cm50OGJibTAyNA=="
     ),
   },
-  {
-    name: "Abhishek yadav ",
-    photo: getLocalPhoto("yadav.jpg"),
-    linkedin: linkedinHelper(
-      "https://www.linkedin.com/in/abhishek-yadav-9406683a4/"
-    ),
-    instagram: null,
-  },
+  
 ];
 
-export const problemSetters = [
-  {
-    name: "Darshan Patel ",
-    photo: getLocalPhoto("darshan.jpeg"),
-    linkedin: linkedinHelper("darshan-patel-1713062a4"),
-    instagram: instagramHelper("mrquantum_1915"),
-  },
-  {
-    name: "Arpit Maheshwari",
-    photo: getLocalPhoto("arpit.jpg"),
-    linkedin: linkedinHelper(
-      "https://www.linkedin.com/in/arpit-maheshwari-bb59a2336/"
-    ),
-    instagram: instagramHelper("Arpit_maheshwari_07"),
-  },
-  {
-    name: "Ashay Gupta",
-    photo: getLocalPhoto("ashay.jpg"),
-    linkedin: linkedinHelper(
-      "https://www.linkedin.com/in/ashay-gupta-30068831b"
-    ),
-    instagram: null,
-  },
-  {
-    name: "Tarun Jain",
-    photo: getLocalPhoto("tarun.jpeg"),
-    linkedin: linkedinHelper("www.linkedin.com/in/tarundeepakjain"),
-    instagram: instagramHelper("https://www.instagram.com/tarundeepakjain/"),
-  },
-];
+
 
 function Page() {
   const [activeTab, setActiveTab] = useState("Website");
 
   const tabs = [
     { id: "Website", label: "Website Team", data: websiteTeam },
+    { id: "Setters", label: "Problem Setters", data: problemSetters },
     { id: "PR", label: "PR Team", data: prTeam },
     { id: "Design", label: "Design Team", data: designTeam },
-    { id: "Setters", label: "Problem Setters", data: problemSetters },
   ];
 
   const currentData = tabs.find((t) => t.id === activeTab)?.data || [];
   return (
-    <div className="min-h-screen bg-[#050505] text-white py-16 px-6">
-      <div className="max-w-[1200px] mx-auto mt-10">
-       
-        <h2
-          className="text-2xl sm:text-5xl md:text-5xl font-black text-center mb-2 sm:mb-10 tracking-tighter uppercase  
-               bg-gradient-to-b from-white via-blue-200 to-blue-600 bg-clip-text text-transparent 
-               drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]"
-        >
-          The Brains <br className="sm:hidden" /> Behind the Build
+    <div className={`min-h-screen relative overflow-x-hidden bg-black text-white ${orbitron.className}`}>
+      
+      <div className="fixed inset-0 z-0">
+         <VoidParticles />
+      </div>
+      
+      <div className="fixed inset-0 z-0 pointer-events-none">
+          <Snowfall
+            color="#00fffb" 
+            snowflakeCount={60}
+            style={{
+              opacity: 0.2,
+              width: "100vw",
+              height: "100vh",
+            }}
+          />
+      </div>
+
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(0,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px] pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-radial-gradient(circle at center, transparent 0%, black 100%) pointer-events-none z-10" />
+
+
+      <div className="relative z-20 container mx-auto px-6 py-20 pb-32">
+        
+        <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center  mt-16 mb-0 tracking-widest uppercase 
+               text-transparent bg-clip-text bg-linear-to-b from-cyan-300 via-cyan-500 to-cyan-900
+               drop-shadow-[0_0_25px_rgba(0,255,255,0.5)]">
+          The Architects
         </h2>
- <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12 sm:mb-20 mt-20">
+
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-20">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 sm:px-10 py-2.5 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-lg font-bold tracking-wide transition-all duration-300 cursor-pointer border-2 ${
-                activeTab === tab.id
-                  ? "bg-white text-black border-white shadow-[0_10px_30px_rgba(255,255,255,0.2)] scale-105"
-                  : "bg-transparent text-zinc-500 border-zinc-800 hover:text-white hover:border-zinc-500"
-              }`}
+              className={`relative group px-3 py-2 sm:px-8 sm:py-3 text-[10px] sm:text-base overflow-hidden font-bold tracking-widest uppercase transition-all duration-300
+                  ${activeTab === tab.id 
+                    ? "text-black bg-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.4)]" 
+                    : "text-cyan-500 border border-cyan-800 hover:text-cyan-300 hover:border-cyan-400 bg-black/40 backdrop-blur-sm"
+                  }`}
+              style={{
+                clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)" 
+              }}
             >
-              {tab.label}
+               {activeTab !== tab.id && (
+                  <div className="absolute inset-0 bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+               )}
+              <span className="relative z-10">{tab.label}</span>
             </button>
           ))}
         </div>
-        <motion.div
-          layout
-          className="grid grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16"
-        >
-          <AnimatePresence mode="wait">
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-wrap justify-center gap-x-12 gap-y-16"
+          >
             {currentData.map((person) => (
-              <motion.div
-                key={`${activeTab}-${person.name}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+              <div
+                key={person.name}
                 className="group flex flex-col items-center"
               >
-                
-                <div className="relative w-full max-w-[280px] lg:max-w-full overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem] bg-zinc-900/50 border border-white/5 group-hover:border-white/20 transition-all duration-500 shadow-2xl">
-                  <img
-                    src={person.photo}
-                    alt={person.name}
-                    className="w-full h-auto block transition-all duration-700 ease-in-out group-hover:scale-105"
-                    onError={(e) => {
-                      e.target.src =
-                        "https://www.transparenttextures.com/patterns/carbon-fibre.png";
-                    }}
-                  />
+                <div className="relative w-full max-w-75 aspect-3/4 p-1 
+                                border border-cyan-500/20 bg-black/50 backdrop-blur-sm
+                                group-hover:border-cyan-400/50 group-hover:shadow-[0_0_30px_rgba(0,255,255,0.15)]
+                                transition-all duration-500">
+                  
+                  <div className="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-cyan-500 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-cyan-400/30"></div>
+                  <div className="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-cyan-500"></div>
+                  <div className="absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 border-cyan-500"></div>
+                  <div className="absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 border-cyan-500 transition-all duration-300 group-hover:w-full group-hover:h-full group-hover:border-cyan-400/30"></div>
 
-                 
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent 
-                                opacity-100 sm:opacity-0 sm:group-hover:opacity-100 
-                                transition-opacity duration-300 flex items-end justify-center pb-4 sm:pb-10"
-                  >
-                    <div className="flex gap-3 sm:gap-6">
-                      {person.linkedin && (
+                  <div className="w-full h-full relative overflow-hidden bg-zinc-900">
+                    <img
+                      src={person.photo}
+                      alt={person.name}
+                      className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:grayscale-0 grayscale-[0.3]"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://www.transparenttextures.com/patterns/carbon-fibre.png";
+                      }}
+                    />
+                    
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+                    <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-center gap-4 translate-y-0 sm:translate-y-full sm:group-hover:translate-y-0 transition-transform duration-300 bg-black/60 backdrop-blur-md border-t border-cyan-500/30">
+                        {person.linkedin && (
                         <a
-                          href={person.linkedin}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="p-2.5 sm:p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black transition-all text-white"
+                            href={person.linkedin}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-2 rounded-none border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all"
                         >
-                          <Linkedin className="w-4 h-4 sm:w-6 sm:h-6" />
+                            <Linkedin className="w-5 h-5" />
                         </a>
-                      )}
-                      {person.instagram && (
+                        )}
+                        {person.instagram && (
                         <a
-                          href={person.instagram}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="p-2.5 sm:p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black transition-all text-white"
+                            href={person.instagram}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-2 rounded-none border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all"
                         >
-                          <Instagram className="w-4 h-4 sm:w-6 sm:h-6" />
+                            <Instagram className="w-5 h-5" />
                         </a>
-                      )}
+                        )}
                     </div>
                   </div>
                 </div>
-                <h3 className="mt-4 sm:mt-8 text-xs sm:text-lg font-black tracking-tight sm:tracking-widest text-zinc-400 group-hover:text-white transition-colors duration-300 uppercase text-center leading-snug px-2">
-                  {person.name}
-                </h3>
-              </motion.div>
+
+                <div className="mt-6 text-center">
+                    <h3 className="text-xl font-bold tracking-widest text-cyan-100 uppercase group-hover:text-cyan-400 transition-colors drop-shadow-[0_0_5px_rgba(0,0,0,0.8)]">
+                    {person.name}
+                    </h3>
+                    <div className="h-0.5 w-0 group-hover:w-full bg-cyan-500 mt-2 transition-all duration-500 mx-auto box-shadow-[0_0_10px_#00fffb]" />
+                </div>
+              </div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

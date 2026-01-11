@@ -108,7 +108,7 @@ export default function Navbar() {
         <div className="flex flex-col items-center p-6 gap-6">
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/">HOME</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/team">TEAM</Link>
-          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/team">RULES</Link>
+          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/rules">RULES</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/sandbox">SANDBOX</Link>
         </div>
       </aside>
