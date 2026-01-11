@@ -14,36 +14,37 @@ const audiowide = Audiowide({
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-   const supabase = createClient_client();
+  const supabase = createClient_client();
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-   const [firstName,setfirstName]=useState("SIGN-IN");
+
   useEffect(() => {
-  const getUser = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    const getUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
 
-    setUser(user)
-    setfirstName( user?.user_metadata?.given_name || user?.user_metadata?.full_name?.split(" ")[0] )
-    setLoading(false)
-  }
+    getUser();
 
-  getUser()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
-
-}, [user])
+    return () => subscription.unsubscribe();
+  }, []);
 
 
   return (
     <>
       <nav className="fixed top-0 z-50 w-full backdrop-blur-md shadow-lg border-b border-white/10 bg-black/20">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-16  px-4">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center">
 
-            <div className="hidden md:flex justify-center gap-20">
-              <Link className="nav-link" href="/"><p className="text-2xl">HOME</p></Link>
-              <Link className="nav-link" href="/team"><p className="text-2xl">TEAM</p></Link>
+            <div className="hidden md:flex justify-end gap-12">
+              <Link className="nav-link" href="/"><p className="text-lg font-bold tracking-widest">HOME</p></Link>
+              <Link className="nav-link" href="/team"><p className="text-lg font-bold tracking-widest">TEAM</p></Link>
+              <Link className="nav-link" href="/rules"><p className="text-lg font-bold tracking-widest">RULES</p></Link>
             </div>
 
             <button
@@ -56,6 +57,7 @@ export default function Navbar() {
             <Link
               href="/"
               className={`
+                mx-5
                 font-black
                 justify-self-center
                 bg-white text-black
@@ -79,9 +81,10 @@ export default function Navbar() {
             </Link>
 
 
-            <div className="hidden md:flex justify-center gap-20">
-              <Link className="nav-link" href="/rules"><p className="text-2xl">RULES</p></Link>
-              <Link className="nav-link" href="/sandbox"><p className="text-2xl">SANDBOX</p></Link>
+            <div className="hidden md:flex justify-start gap-12">
+              <Link className="nav-link" href="/sandbox"><p className="text-lg font-bold tracking-widest">SANDBOX</p></Link>
+              <Link className="nav-link" href="/leaderboard"><p className="text-lg font-bold tracking-widest">LEADERBOARD</p></Link>
+              <Link className="nav-link" href="/login"><p className="text-lg font-bold tracking-widest">{user ? "PROFILE" : "SIGN-IN"}</p></Link>
             </div>
           </div>
         </div>
@@ -108,8 +111,10 @@ export default function Navbar() {
         <div className="flex flex-col items-center p-6 gap-6">
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/">HOME</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/team">TEAM</Link>
+          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/leaderboard">LEADERBOARD</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/rules">RULES</Link>
           <Link onClick={() => setOpen(false)} className="sidebar-link" href="/sandbox">SANDBOX</Link>
+          <Link onClick={() => setOpen(false)} className="sidebar-link" href="/login">{user ? "PROFILE" : "SIGN-IN"}</Link>
         </div>
       </aside>
     </>
