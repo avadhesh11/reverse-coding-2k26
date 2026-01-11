@@ -16,11 +16,15 @@ import GlitchText from "./components/GlitchText";
 import GlitchImage from "./components/GlitchImage";
 import Main_button from "./components/main_button";
 import Snowfall from "react-snowfall";
+import { createClient_client } from "@/utils/supabaseClient";
+import { AuthChangeEvent } from "@supabase/supabase-js";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+const supabase = createClient_client();
 
 const getsnowcount = (w: number) => {
   if (w < 480) {
@@ -36,6 +40,28 @@ export default function Home() {
     size: "lg",
   });
   const [snowCount, setSnowCount] = useState(50);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+
+    getSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (_event: AuthChangeEvent, session: any) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const updateSizes = () => {
@@ -150,24 +176,24 @@ export default function Home() {
             <div className="space-y-2 sm:space-y-3 text-center md:text-left">
               <FadeIn delay={0.2}>
                 <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-light uppercase tracking-[0.18em] text-white">
-                  18th January, 2026
+                  17th January, 2026
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.2}>
                 <p className="text-base sm:text-xl md:text-3xl lg:text-4xl font-light uppercase tracking-[0.22em] text-white">
-                  Sunday
+                  Saturday
                 </p>
               </FadeIn>
 
               <p className="text-base sm:text-xl md:text-3xl lg:text-4xl font-light uppercase tracking-[0.2em] text-white">
-                21:00 - 23:00 IST
+                20:00 - 23:00 IST
               </p>
             </div>
 
             <div className="w-full md:w-auto flex justify-center md:justify-end">
               <div className="transition-all duration-500 ease-out hover:drop-shadow-[0_0_35px_rgba(0,255,255,0.6)] hover:scale-105">
-                <Main_button text="Register.exe" />
+                <Main_button text={user ? "PROFILE.EXE" : "REGISTER.EXE"} />
               </div>
             </div>
           </div>

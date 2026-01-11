@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const clipPath =
-    "polygon(5% 0%, 100% 0%, 100% 75%, 95% 100%, 0% 100%, 0% 20%)";
+    "polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px)";
 
   const format = (v?: string | number) =>
     typeof v === "number" ? `${v}px` : v;

@@ -32,13 +32,22 @@ export default function Main_button({ text = "REGISTER.EXE", width = 290, height
     }, 40);
   };
 
+  // Update displayText when prop changes
   useEffect(() => {
+    setDisplayText(text);
+    scramble(); 
+  }, [text]);
+
+  useEffect(() => {
+    // Clear any existing loop on mount/update
+    clearInterval(autoLoopRef.current);
+    
     autoLoopRef.current = setInterval(() => {
       scramble();
     }, 4000);
 
     return () => clearInterval(autoLoopRef.current);
-  }, []);
+  }, [text]); // Re-run effect when text changes to capture new closure
 
  
   const handleInteraction = () => {
