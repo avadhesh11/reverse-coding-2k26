@@ -17,7 +17,7 @@ function Atlas() {
         ATLAS
       </div>
 
-      <div className="flex flex-col lg:flex-row w-full min-h-[500px] ">
+      <div className="flex flex-col lg:flex-row w-full min-h-[500px] gap-10 lg:gap-0">
         <div className="w-full lg:w-[45%] flex items-center justify-center border-white/10 rounded-lg">
           <Atlas_links />
         </div>

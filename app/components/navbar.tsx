@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 z-50 w-full backdrop-blur-md shadow-lg border-b border-white/10 bg-black/20">
-        <div className="mx-16  px-4">
+        <div className="mx-4 md:mx-16 px-4">
           <div className="grid grid-cols-[1fr_auto_1fr] items-center">
 
             <div className="hidden md:flex justify-end gap-12">
@@ -57,11 +57,11 @@ export default function Navbar() {
             <Link
               href="/"
               className={`
-                mx-5
+                md:mx-5
                 font-black
                 justify-self-center
                 bg-white text-black
-                px-14
+                px-10 md:px-14
                 py-1.5
                 logo
                 whitespace-nowrap
@@ -86,6 +86,8 @@ export default function Navbar() {
               <Link className="nav-link" href="/leaderboard"><p className="text-lg font-bold tracking-widest">LEADERBOARD</p></Link>
               <Link className="nav-link" href="/login"><p className="text-lg font-bold tracking-widest">{user ? "PROFILE" : "SIGN-IN"}</p></Link>
             </div>
+            
+            <div className="md:hidden w-6" />
           </div>
         </div>
       </nav>

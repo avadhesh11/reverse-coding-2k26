@@ -135,6 +135,7 @@ const Crack_the_box = () => {
             `}
           >
             <NeonButton
+              onClick={() => window.open("https://unstop.com/p/ccxenigma-tesseract26-iiit-vadodara-1620570", "_blank")}
               text="UNSTOP"
               width={btnSize.width}
               height={btnSize.height}
